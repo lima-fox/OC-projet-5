@@ -1,6 +1,7 @@
 <?php
 use App\Controllers\HomeController;
 use App\Controllers\ContactController;
+use App\Controllers\PostController;
 
 $uri = $_SERVER['REQUEST_URI'];
 
@@ -18,6 +19,11 @@ elseif ($uri == "/post")
 {
     $home = new HomeController();
     $home->post();
+}
+elseif (strpos($uri, "/billet") !== false)
+{
+    $home = new PostController();
+    $home->billet();
 }
 elseif ($uri == "/contact")
 {

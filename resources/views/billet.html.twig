@@ -1,11 +1,9 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Blog5 - Post{% endblock %}
+{% block title %}Blog5 - Billet{% endblock %}
 
 {% block content %}
 
-<!--je parcours ma liste de résultats et chaque ligne est assignée à la variable post -->
-{% for post in posts %}
 <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
@@ -16,12 +14,11 @@
               {{ post.title|e }}
             </h2>
             <h3 class="post-subtitle">
-               {{ post.chapo|e }}...
+               {{ post.chapo|e }}
             </h3>
           </a>
             <p class="post-subtitle ">
-               {{ post.content[:250]|e }}...         
-            <a class="btn btn-primary float-right" href="/billet?id={{post.id}}">Lire la suite &rarr;</a>
+               {{ post.content|e }}       
             </p>
           <p class="post-meta">
             {{ post.date|e }}</p>
@@ -31,9 +28,6 @@
       </div>
     </div>
   </div>
-  {% endfor %}
-        <div class="clearfix col-lg-8 col-md-10 mx-auto ">
-          <a class="btn btn-primary float-right" href="http://blog5.test/post">Voir plus de billets &rarr;</a>
-        </div>
+
 
 {% endblock %}
