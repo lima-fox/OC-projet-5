@@ -4,7 +4,11 @@ include "../vendor/autoload.php";
 
 session_start();
 
-include "../config/views.php";
+include "../config/Template.php";
+
+include "../config/Database.php";
 
 include "../config/routes.php";
+
+
 
