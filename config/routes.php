@@ -17,8 +17,8 @@ elseif ($uri == "/a-propos")
 }
 elseif ($uri == "/post")
 {
-    $home = new HomeController();
-    $home->post();
+    $home = new PostController();
+    $home->list();
 }
 elseif (strpos($uri, "/billet") !== false)
 {

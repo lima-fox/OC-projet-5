@@ -13,18 +13,18 @@
           <a href="/post">
             <h2 class="post-title">
             <!--j'affiche le champs title depuis la ligne en cours -->
-              {{ post.title|e }}
+              {{ post.getTitle()|e }}
             </h2>
             <h3 class="post-subtitle">
-               {{ post.chapo|e }}...
+               {{ post.getChapo()|e }}...
             </h3>
           </a>
             <p class="post-subtitle ">
-               {{ post.content[:250]|e }}...         
-            <a class="btn btn-primary float-right" href="/billet?id={{post.id}}">Lire la suite &rarr;</a>
+               {{ post.getContent()[:250]|e }}...         
+            <a class="btn btn-primary float-right" href="/billet?id={{ post.getId() }}">Lire la suite &rarr;</a>
             </p>
           <p class="post-meta">
-            {{ post.date|e }}</p>
+            {{ post.getDate()|e }}</p>
         </div>
         <hr>
         <!-- Pager -->        

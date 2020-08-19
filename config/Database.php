@@ -2,25 +2,13 @@
  
 Class Database
 {
-    private $user ;
-    private $host;
-    private $pass ;
-    private $db;
-    private $bdd;
+    private static $bdd;
 
-    public function __construct()
-    {
-        $this->user = "homestead";
-        $this->host = "localhost";
-        $this->pass = "secret";
-        $this->db = "blog5";
-        
-    }
-    public function connect()
+    public static function connect()
     {
         try
         {
-            $this->bdd = new \PDO('mysql:host=' . $this->host . ';dbname=' . $this->db . ';charset=utf8', $this->user, $this->pass);
+            self::$bdd = new \PDO('mysql:host=localhost;dbname=blog5;charset=utf8', 'homestead', 'secret');
         }
         catch(Exception $e)
         {
@@ -28,9 +16,9 @@ Class Database
         }
     }
 
-    public function query(string $req)
+    public static function query(string $req)
     {
-        return $this->bdd->query($req);     
+        return self::$bdd->query($req);     
     }
 }
 
