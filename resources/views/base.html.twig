@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{% block title %}Clean Blog - Start Bootstrap Theme{% endblock %}</title>
+  <title>{% block title %}Clean Blog - Accueil{% endblock %}</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -47,8 +47,17 @@
             <a class="nav-link" href="/post">Billets</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact">Contact</a>
+            <a class="nav-link" href="/contact">Contact</a>
           </li>
+          {% if user != null %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">{{ user.getFirstname()|e }} {{ user.getLastname()|e }}</a>
+          </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="/seconnecter">Se connecter</a>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </div>
