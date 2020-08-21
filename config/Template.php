@@ -14,7 +14,7 @@ class Template
         ]);
     }
     
-    public function view(string $template, array $parameters = array()) 
+    public function view(string $template, array $parameters = []) 
     {
         echo $this->twig->render($template, $parameters);
     }
