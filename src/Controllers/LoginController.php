@@ -23,10 +23,16 @@ class LoginController
         }
         else
         {
-            $_SESSION['error'] = "Identifiant ou mot de passe incorrects";
+            $_SESSION['error'] = "Identifiant ou mot de passe incorrect";
             header('Location: /seconnecter');
         }
 
+    }
+
+    public function disconnect()
+    {
+        unset($_SESSION['user_login']);
+        header('Location: /');
     }
 
 

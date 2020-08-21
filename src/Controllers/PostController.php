@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
+use App\Comment;
 use App\Post;
+use App\User;
 
 class PostController
 {
@@ -14,8 +16,10 @@ class PostController
     public function billet()
     {
         $post = Post::getById($_GET['id']);
+        $comments = Comment::getByPostId($_GET['id']);
 
-        $this->tpl->view("billet.html.twig", ['post' => $post]);
+
+        $this->tpl->view("billet.html.twig", ['post' => $post, 'comments' => $comments]);
         
     }
 
@@ -25,4 +29,6 @@ class PostController
 
         $this->tpl->view("post.html.twig", ['posts' => $posts]);
     }
+
+
 }

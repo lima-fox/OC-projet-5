@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">
-          <a href="/post">
+          <a href="#">
             <h2 class="post-title">
             <!--j'affiche le champs title depuis la ligne en cours -->
               {{ post.title|e }}
@@ -23,6 +23,18 @@
           <p class="post-meta">
             {{ post.date|e }}</p>
         </div>
+        <hr>
+        <h2>Commentaires</h2>
+        {% for comment in comments %}
+        <div class="post-preview">
+          <p class="post-subtitle ">
+            {{ comment.getContent()|e }} <br>
+            {{ comment.getUser().getFirstname()|e }}
+          </p>
+          <p class="post-meta">
+            {{ comment.getDateComment()|e }}</p>
+        </div>
+        {% endfor %}
         <hr>
         <!-- Pager -->        
       </div>

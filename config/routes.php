@@ -46,3 +46,8 @@ elseif ($uri == "/login")
     $home = new LoginController();
     $home->connect();
 }
+elseif ($uri == "/disconnect")
+{
+    $home = new LoginController();
+    $home->disconnect();
+}
