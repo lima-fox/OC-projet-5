@@ -131,7 +131,7 @@ class Comment extends \Database
     public static function getByPostId($post_id) : array
     {
         self::connect();
-        $results = self::query("SELECT * FROM `comments` WHERE `post_id` =" . $post_id);
+        $results = self::query("SELECT * FROM `comments` WHERE `post_id` = :post_id", ['post_id' => $post_id]);
 
         $comments = [];
 
@@ -142,6 +142,13 @@ class Comment extends \Database
         }
         return $comments;
 
+    }
+
+    public static function create(int $post_id, int $users_id, string $content)
+    {
+        self::connect();
+
+        self::execute("INSERT INTO `comments`(`post_id`, `users_id`, `date_comment`, `content`) VALUES (:post_id, :users_id, :date_comment, :content)", ['post_id' => $post_id, 'users_id' => $users_id, 'date_comment' => date("Y-m-d H:i:s"), 'content' => $content] );
     }
 
 

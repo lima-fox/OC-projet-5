@@ -1,4 +1,6 @@
 <?php
+
+use App\Controllers\CommentController;
 use App\Controllers\HomeController;
 use App\Controllers\ContactController;
 use App\Controllers\LoginController;
@@ -25,6 +27,11 @@ elseif (strpos($uri, "/billet") !== false)
 {
     $home = new PostController();
     $home->billet();
+}
+elseif ($uri == "/comment/send")
+{
+    $home = new CommentController();
+    $home->add_comment();
 }
 elseif ($uri == "/contact")
 {

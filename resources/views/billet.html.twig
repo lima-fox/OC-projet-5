@@ -24,6 +24,20 @@
             {{ post.date|e }}</p>
         </div>
         <hr>
+        <p>Laissez-nous un commentaire</p>
+        <form name="sentMessage" id="commentform" action="/comment/send" method="POST"  novalidate>
+          <input type="hidden" name="post_id" value="{{ post.getId() }}">
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Message</label>
+              <textarea rows="5" class="form-control" placeholder="Message" id="content" name="content" required data-validation-required-message="Votre message"></textarea>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Envoyer</button>
+        </form>
+        <br>
         <h2>Commentaires</h2>
         {% for comment in comments %}
         <div class="post-preview">
