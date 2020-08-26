@@ -189,19 +189,29 @@ class User extends \Database
 
     }
 
-    public static function getById(int $id) : User
+    public static function getById(int $id) : ?User
     {
         self::connect();
+
         $result = self::query('SELECT * FROM users WHERE id = :id', ['id' => $id])->fetch();
-        $user = new User($result['id'],
-            $result['login'],
-            $result['pass'],
-            $result['lastname'],
-            $result['firstname'],
-            $result['mail'],
-            $result['phone'],
-            $result['category']);
-        return $user;
+
+        if (is_array($result))
+        {
+            $user = new User($result['id'],
+                $result['login'],
+                $result['pass'],
+                $result['lastname'],
+                $result['firstname'],
+                $result['mail'],
+                $result['phone'],
+                $result['category']);
+            return $user;
+        }
+        else
+        {
+            return null;
+        }
+
     }
 }
 

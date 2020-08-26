@@ -25,6 +25,13 @@
         </div>
         <hr>
         <p>Laissez-nous un commentaire</p>
+        {% if error_post != null and error_login != null and error_content != null %}
+          <div class="alert alert-danger" role="alert">
+            {{ error_post }} <br />
+            {{ error_login }} <br/>
+            {{ error_content }}
+          </div>
+        {% endif %}
         <form name="sentMessage" id="commentform" action="/comment/send" method="POST"  novalidate>
           <input type="hidden" name="post_id" value="{{ post.getId() }}">
           <div class="control-group">

@@ -1,4 +1,5 @@
 <?php
+include 'admin_routes.php';
 
 use App\Controllers\CommentController;
 use App\Controllers\HomeController;

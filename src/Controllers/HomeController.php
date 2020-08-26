@@ -20,6 +20,11 @@ class HomeController
         $this->tpl->view("about.html.twig");
     }
 
+    public function admin()
+    {
+        $this->tpl->view("/admin/starter.html.twig");
+    }
+
     public function index()
     {
         $user_id = null;
