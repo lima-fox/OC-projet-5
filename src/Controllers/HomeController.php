@@ -22,21 +22,13 @@ class HomeController
 
     public function admin()
     {
+
         $this->tpl->view("/admin/starter.html.twig");
     }
 
     public function index()
     {
-        $user_id = null;
-        $user = null;
-        if(isset($_SESSION['user_login']))
-        {
-            $user_id = $_SESSION['user_login'];
-            $user = User::getById($user_id);
-        }
-
-
-        $this->tpl->view("index.html.twig", ['user'=> $user]);
+        $this->tpl->view("index.html.twig" );
     }
 
     public function auth()

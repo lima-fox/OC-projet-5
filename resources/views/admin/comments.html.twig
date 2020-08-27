@@ -49,7 +49,8 @@
                                 <td>{{ comment.getDatecomment }}</td>
                                 <td>{{ comment.getUser().getLogin() }}</td>
                                 <td>{{ comment.getContent}}</td>
-                                <td>bouton validation / delete</td>
+                                <td><button type="button" class="btn btn-block bg-gradient-success btn-flat" onclick="location.href='/admin/comments/validate?id={{ comment.getId() }}'">Valider</button>
+                                    <button type="button" class="btn btn-block bg-gradient-danger btn-flat" onclick="location.href='/admin/comments/delete?id={{ comment.getId() }}'">Supprimer</button></td>
                             </tr>
                             {% endfor %}
 

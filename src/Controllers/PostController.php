@@ -36,12 +36,19 @@ class PostController
             unset($_SESSION['error_content']);
         }
 
+        $comment_sent = 0;
+        if(isset($_SESSION['comment_sent'])) {
+            $comment_sent = $_SESSION['comment_sent'];
+            unset($_SESSION['comment_sent']);
+        }
+
 
         $this->tpl->view("billet.html.twig", ['post' => $post,
                                                         'comments' => $comments,
                                                         'error_post' => $error_post,
                                                         'error_login' => $error_login,
-                                                        'error_content' => $error_content]);
+                                                        'error_content' => $error_content,
+                                                        'comment_sent' => $comment_sent]);
         
     }
 

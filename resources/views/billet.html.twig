@@ -4,7 +4,26 @@
 
 {% block content %}
 
-<div class="container">
+  {% if error_post != null %}  %}
+    <div class="alert alert-danger" role="alert">
+      {{ error_post }} </div><br/>
+  {% endif %}
+  {% if error_login != null %}
+  <div class="alert alert-danger" role="alert">
+  {{ error_login }} </div><br/>
+  {% endif %}
+  {% if error_content != null %}
+  <div class="alert alert-danger" role="alert">
+  {{ error_content }}</div>
+  {% endif %}
+
+  {% if comment_sent == 1 %}
+    <div class="alert alert-success" role="alert">
+      Commentaire envoyé, en cours de validation
+    </div>
+  {% endif %}
+
+  <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">
@@ -23,15 +42,11 @@
           <p class="post-meta">
             {{ post.date|e }}</p>
         </div>
+
         <hr>
+
+        {% if user_connected != null %}
         <p>Laissez-nous un commentaire</p>
-        {% if error_post != null and error_login != null and error_content != null %}
-          <div class="alert alert-danger" role="alert">
-            {{ error_post }} <br />
-            {{ error_login }} <br/>
-            {{ error_content }}
-          </div>
-        {% endif %}
         <form name="sentMessage" id="commentform" action="/comment/send" method="POST"  novalidate>
           <input type="hidden" name="post_id" value="{{ post.getId() }}">
           <div class="control-group">
@@ -44,6 +59,11 @@
           <div id="success"></div>
           <button type="submit" class="btn btn-primary" id="sendMessageButton">Envoyer</button>
         </form>
+        {% else %}
+        <p>Vous devez être connecté pour laisser un commentaire</p>
+        {% endif %}
+
+
         <br>
         <h2>Commentaires</h2>
         {% for comment in comments %}

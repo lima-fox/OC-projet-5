@@ -173,6 +173,7 @@ class Comment extends \Database
                         VALUES (:post_id, :users_id, :date_comment, :content, :status)",
                         ['post_id' => $post_id, 'users_id' => $users_id, 'date_comment' => date("Y-m-d H:i:s"),
                         'content' => $content, 'status' => 0 ]);
+
     }
 
     public static function getNotValidated() : array

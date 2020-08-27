@@ -59,7 +59,9 @@ class CommentController
         if($post_id !=0 AND $users_id != NULL AND $content != '')
         {
             Comment::create($post_id, $users_id, $content);
+            $_SESSION['comment_sent'] = 1;
         }
+
 
         header('Location: /billet?id=' . $post_id);
     }

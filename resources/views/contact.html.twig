@@ -23,14 +23,25 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        {% if error_mail != null and error_phone != null and error_name != null and error_text != null %}
-        <div class="alert alert-danger" role="alert">
-        {{ error_mail }} <br />
-        {{ error_phone }} <br/>
-        {{ error_name }} <br/>
-        {{ error_text }}
-        </div>
+        {% if error_mail != null %}
+          <div class="alert alert-danger" role="alert">
+        {{ error_mail }} </div><br>
+          {% endif %}
+        {% if error_phone != null %}
+          <div class="alert alert-danger" role="alert">
+          {{ error_phone }} </div><br/>
         {% endif %}
+          {% if error_name != null %}
+            <div class="alert alert-danger" role="alert">
+            {{ error_name }} </div><br/>
+          {% endif %}
+          {% if error_text != null %}
+            <div class="alert alert-danger" role="alert">
+            {{ error_text }}</div>
+          {% endif %}
+
+
+
 
         {% if email_sent == 1 %}
         <div class="alert alert-success" role="alert">
@@ -38,7 +49,7 @@
         </div>
         {% endif %}
 
-        <p>Pour toutes questions, n'hésitez pas à me contacter, je vous répondrais au plus vite !</p>
+        <p>Pour toutes questions, n'hésitez pas à me contacter, je vous répondrais au plus vite !</p><br>
         <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
         <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
         <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
