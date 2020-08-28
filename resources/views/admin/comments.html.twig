@@ -1,0 +1,72 @@
+{% extends "/admin/starter.html.twig" %}
+
+{% block title %}Admin - Commentaires{% endblock %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>DataTables</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">DataTables</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Nouveaux commentaires en attente de validation</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Numéro du billet</th>
+                                <th>Date du commentaire</th>
+                                <th>Auteur</th>
+                                <th>Contenu</th>
+                                <th>Validation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.getPostId()|e }}</td>
+                                <td>{{ comment.getDatecomment }}</td>
+                                <td>{{ comment.getUser().getLogin() }}</td>
+                                <td>{{ comment.getContent}}</td>
+                                <td><button type="button" class="btn btn-block bg-gradient-success btn-flat" onclick="location.href='/admin/comments/validate?id={{ comment.getId() }}'">Valider</button>
+                                    <button type="button" class="btn btn-block bg-gradient-danger btn-flat" onclick="location.href='/admin/comments/delete?id={{ comment.getId() }}'">Supprimer</button></td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Numéro du billet</th>
+                                <th>Date du commentaire</th>
+                                <th>Auteur</th>
+                                <th>Contenu</th>
+                                <th>Validation</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+{% endblock %}

@@ -100,19 +100,30 @@ Class Post extends \Database
             $this->author = $author;
     }
 
-    public static function getById(int $id) : Post 
+    public static function getById(int $id) : ?Post
     {
         self::connect();
-        $result = self::query('SELECT * ,DATE_FORMAT(`date`,"%d/%m/%Y à %Hh%imin%ss") AS date_post FROM posts WHERE id =' . $id)->fetch();
-        $post = new Post($result['id'], $result['date'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
-        return $post;
+
+        $result = self::query('SELECT * ,DATE_FORMAT(`date`,"%d/%m/%Y à %Hh%imin%ss") AS date_post 
+                                    FROM posts 
+                                    WHERE id = :id', ['id' => $id])->fetch();
+        if (is_array($result))
+        {
+            $post = new Post($result['id'], $result['date'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
+            return $post;
+        }
+        else
+        {
+            return null;
+        }
+
     }
 
     public static function getAll() : array
     {
         self::connect();
         $results = self::query('SELECT * ,DATE_FORMAT(`date`,"%d/%m/%Y à %Hh%imin%ss") AS date_post FROM posts ORDER BY `date` DESC');
-        
+
         $posts = [];
 
         foreach($results AS $result)

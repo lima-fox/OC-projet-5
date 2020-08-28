@@ -4,11 +4,30 @@
 
 {% block content %}
 
-<div class="container">
+  {% if error_post != null %}  %}
+    <div class="alert alert-danger" role="alert">
+      {{ error_post }} </div><br/>
+  {% endif %}
+  {% if error_login != null %}
+  <div class="alert alert-danger" role="alert">
+  {{ error_login }} </div><br/>
+  {% endif %}
+  {% if error_content != null %}
+  <div class="alert alert-danger" role="alert">
+  {{ error_content }}</div>
+  {% endif %}
+
+  {% if comment_sent == 1 %}
+    <div class="alert alert-success" role="alert">
+      Commentaire envoyé, en cours de validation
+    </div>
+  {% endif %}
+
+  <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">
-          <a href="/post">
+          <a href="#">
             <h2 class="post-title">
             <!--j'affiche le champs title depuis la ligne en cours -->
               {{ post.title|e }}
@@ -23,6 +42,40 @@
           <p class="post-meta">
             {{ post.date|e }}</p>
         </div>
+
+        <hr>
+
+        {% if user_connected != null %}
+        <p>Laissez-nous un commentaire</p>
+        <form name="sentMessage" id="commentform" action="/comment/send" method="POST"  novalidate>
+          <input type="hidden" name="post_id" value="{{ post.getId() }}">
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Message</label>
+              <textarea rows="5" class="form-control" placeholder="Message" id="content" name="content" required data-validation-required-message="Votre message"></textarea>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Envoyer</button>
+        </form>
+        {% else %}
+        <p>Vous devez être connecté pour laisser un commentaire</p>
+        {% endif %}
+
+
+        <br>
+        <h2>Commentaires</h2>
+        {% for comment in comments %}
+        <div class="post-preview">
+          <p class="post-subtitle ">
+            {{ comment.getContent()|e }} <br>
+            {{ comment.getUser().getFirstname()|e }}
+          </p>
+          <p class="post-meta">
+            {{ comment.getDateComment()|e }}</p>
+        </div>
+        {% endfor %}
         <hr>
         <!-- Pager -->        
       </div>

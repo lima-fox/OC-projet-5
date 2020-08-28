@@ -1,6 +1,10 @@
 <?php
+include 'admin_routes.php';
+
+use App\Controllers\CommentController;
 use App\Controllers\HomeController;
 use App\Controllers\ContactController;
+use App\Controllers\LoginController;
 use App\Controllers\PostController;
 
 $uri = $_SERVER['REQUEST_URI'];
@@ -25,6 +29,11 @@ elseif (strpos($uri, "/billet") !== false)
     $home = new PostController();
     $home->billet();
 }
+elseif ($uri == "/comment/send")
+{
+    $home = new CommentController();
+    $home->add_comment();
+}
 elseif ($uri == "/contact")
 {
     $home = new ContactController();
@@ -34,4 +43,19 @@ elseif ($uri == "/contact/send")
 {
     $send = new ContactController();
     $send->sendMessage(); 
+}
+elseif ($uri == "/seconnecter")
+{
+    $home = new HomeController();
+    $home->auth();
+}
+elseif ($uri == "/login")
+{
+    $home = new LoginController();
+    $home->connect();
+}
+elseif ($uri == "/disconnect")
+{
+    $home = new LoginController();
+    $home->disconnect();
 }

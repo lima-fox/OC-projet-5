@@ -12,14 +12,23 @@ Class Database
         }
         catch(Exception $e)
         {
-            die('Erreur:' . $e->getMessage());
+            die('Error:' . $e->getMessage());
         }
     }
 
-    public static function query(string $req)
+    public static function query(string $req, array $values = [])
     {
-        return self::$bdd->query($req);     
+        $prepare = self::$bdd->prepare($req);
+        $prepare->execute($values);
+        return $prepare;
     }
+
+    public static function execute(string $req, array $values)
+    {
+        self::$bdd->prepare($req)->execute($values);
+    }
+
+
 }
 
 

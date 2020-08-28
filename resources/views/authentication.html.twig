@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Blog5 - Se connecter{% endblock %}
+
+{% block content %}
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% if error != null %}
+        <div class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+        {% endif %}
+        <p></p>
+        <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+        <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+        <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+        <form name="authentication" id="contactForm" action="/login" method="POST"  novalidate>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Entrer votre login</label>
+              <input type="text" class="form-control" placeholder="login" id="login" name="login" required data-validation-required-message="Veuillez entrer votre nom">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Mot de passe</label>
+              <input type="password" class="form-control" placeholder="mot de passe" id="pass" name="pass" required data-validation-required-message="Veuillez entrer votre adresse mail">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          
+          <br>
+          <div id="success"></div>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Se connecter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  {% endblock %}
