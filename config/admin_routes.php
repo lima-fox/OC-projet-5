@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\AdminCommentController;
+use App\Controllers\AdminPostController;
 use App\Controllers\HomeController;
 
 $uri = $_SERVER['REQUEST_URI'];
@@ -24,4 +25,9 @@ elseif (strpos($uri, "/admin/comments/delete") !== false)
 {
     $home = new AdminCommentController();
     $home->delete();
+}
+elseif ($uri == "/admin/post")
+{
+    $home = new AdminPostController();
+    $home->add_post();
 }

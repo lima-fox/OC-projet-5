@@ -1,0 +1,45 @@
+{% extends "/admin/starter.html.twig" %}
+
+{% block title %}Admin - Post{% endblock %}
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 mx-auto">
+                <p>Formulaire à compléter pour ajouter un nouveau billet</p><br>
+                <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+                <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+                <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+                <form name="sentMessage" id="contactForm" action="/post/send" method="POST"  novalidate>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Titre</label>
+                            <input type="text" class="form-control" placeholder="Titre" id="title" name="title" required data-validation-required-message="Veuillez entrer votre nom">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Chapô</label>
+                            <input type="text" class="form-control" placeholder="Chapô" id="chapo" name="chapo" required data-validation-required-message="Veuillez entrer votre adresse mail">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Texte</label>
+                            <textarea rows="5" class="form-control" placeholder="Texte" id="text" name="text" required data-validation-required-message="Votre message"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <button type="submit" class="btn btn-primary" id="sendMessageButton">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+{% endblock %}
