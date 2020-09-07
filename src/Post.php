@@ -10,6 +10,7 @@ Class Post extends \Database
     private string $chapo;
     private string $content;
     private int $author;
+    private ?User $user;
 
     public function __construct(int $id, string $date_post, ?string $date_modif, string $title, string $chapo, string $content, int $author)
     {
@@ -20,6 +21,7 @@ Class Post extends \Database
         $this->chapo = $chapo;
         $this->content = $content;
         $this->author = $author;
+        $this->user = User::getById($author);
         
     }
 
@@ -64,6 +66,24 @@ Class Post extends \Database
         return $this->author;
     }
 
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     */
+    public function setUser(?User $user): void
+    {
+        $this->user = $user;
+    }
+
+
+
     //liste des setters
     public function setId(int $id)
     {
@@ -104,12 +124,12 @@ Class Post extends \Database
     {
         self::connect();
 
-        $result = self::query('SELECT * ,DATE_FORMAT(`date`,"%d/%m/%Y à %Hh%imin%ss") AS date_post 
+        $result = self::query('SELECT * ,DATE_FORMAT(`date_post`,"%d/%m/%Y à %Hh%imin%ss") AS date_post 
                                     FROM posts 
                                     WHERE id = :id', ['id' => $id])->fetch();
         if (is_array($result))
         {
-            $post = new Post($result['id'], $result['date'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
+            $post = new Post($result['id'], $result['date_post'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
             return $post;
         }
         else
@@ -122,13 +142,13 @@ Class Post extends \Database
     public static function getAll() : array
     {
         self::connect();
-        $results = self::query('SELECT * ,DATE_FORMAT(`date`,"%d/%m/%Y à %Hh%imin%ss") AS date_post FROM posts ORDER BY `date` DESC');
+        $results = self::query('SELECT * ,DATE_FORMAT(`date_post`,"%d/%m/%Y à %Hh%imin%ss") AS date_post FROM posts ORDER BY `date_post` DESC');
 
         $posts = [];
 
         foreach($results AS $result)
         {
-            $post = new Post($result['id'], $result['date'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
+            $post = new Post($result['id'], $result['date_post'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
             $posts[] = $post;
         }
         return $posts;

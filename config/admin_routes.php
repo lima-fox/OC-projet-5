@@ -4,6 +4,7 @@ use App\Controllers\AdminCommentController;
 use App\Controllers\AdminPostController;
 use App\Controllers\HomeController;
 
+
 $uri = $_SERVER['REQUEST_URI'];
 
 if ($uri == "/admin/dashboard")
@@ -30,4 +31,14 @@ elseif ($uri == "/admin/post")
 {
     $home = new AdminPostController();
     $home->add_post();
+}
+elseif ($uri == "/admin/post/send")
+{
+    $home = new AdminPostController();
+    $home->create();
+}
+elseif ($uri == "/admin/posts_list")
+{
+    $home = new AdminPostController();
+    $home->list();
 }
