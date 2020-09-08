@@ -53,7 +53,7 @@
                                     <td>{{ post.getDateModif() }}</td>
                                     <td>{{ post.getTitle()}}</td>
                                     <td>{{ post.getChapo()[:50]}}</td>
-                                    <td>{{ post.getContent()[:100]}}</td>
+                                    <td>{{ post.getContent()[:100]|raw}}</td>
                                     <td>{{ post.getUser().getFirstname() }}</td>
                                     <td><button type="button" class="btn btn-block bg-gradient-success btn-flat" onclick="location.href='/admin/post/modify?id={{ post.getId() }}'">Modifier</button>
                                         <button type="button" class="btn btn-block bg-gradient-danger btn-flat" onclick="location.href='/admin/posts/delete?id={{ post.getId() }}'">Supprimer</button></td>

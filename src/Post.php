@@ -36,7 +36,7 @@ Class Post extends \Database
         return $this->date_post;
     }
 
-    public function getDate_modif() : ?string
+    public function getDateModif() : ?string
     {
         return $this->date_modif;
     }
@@ -124,7 +124,7 @@ Class Post extends \Database
     {
         self::connect();
 
-        $result = self::query('SELECT * ,DATE_FORMAT(`date_post`,"%d/%m/%Y à %Hh%imin%ss") AS date_post 
+        $result = self::query('SELECT *  
                                     FROM posts 
                                     WHERE id = :id', ['id' => $id])->fetch();
         if (is_array($result))
@@ -142,7 +142,7 @@ Class Post extends \Database
     public static function getAll() : array
     {
         self::connect();
-        $results = self::query('SELECT * ,DATE_FORMAT(`date_post`,"%d/%m/%Y à %Hh%imin%ss") AS date_post FROM posts ORDER BY `date_post` DESC');
+        $results = self::query('SELECT * FROM posts ORDER BY `date_post` DESC');
 
         $posts = [];
 
@@ -167,6 +167,29 @@ Class Post extends \Database
                                 'chapo' => $chapo,
                                 'content' => $content,
                                 'author' => $author]);
+    }
+
+    public static function modify(string $title, string $chapo, string $content, int $id)
+    {
+        self::connect();
+
+        self::execute("UPDATE `posts` SET `date_modif`= :date_modif,
+                                                `title`= :title,
+                                                `chapo`= :chapo,
+                                                `content`= :content                                                 
+                                                WHERE id = :id",
+                                                [
+                                                    'date_modif' => date("Y-m-d H:i:s"),
+                                                    'title' => $title,
+                                                    'chapo' => $chapo,
+                                                    'content' => $content,
+                                                    'id' => $id
+                                                ]);
+    }
+
+    public function getPrettyDate() : string
+    {
+
     }
     
 }

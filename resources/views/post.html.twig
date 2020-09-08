@@ -20,7 +20,7 @@
             </h3>
           </a>
             <p class="post-subtitle ">
-               {{ post.getContent()[:250]|e }}...         
+               {{ post.getContent()[:250]|raw }}...
             <a class="btn btn-primary float-right" href="/billet?id={{ post.getId() }}">Lire la suite &rarr;</a>
             </p>
           <p class="post-meta">

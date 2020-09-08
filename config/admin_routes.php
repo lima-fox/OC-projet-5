@@ -42,3 +42,13 @@ elseif ($uri == "/admin/posts_list")
     $home = new AdminPostController();
     $home->list();
 }
+elseif ($uri == "/admin/post_modify")
+{
+    $home = new AdminPostController();
+    $home->modify_send();
+}
+elseif (strpos($uri, "/admin/post/modify") !== false)
+{
+    $home = new AdminPostController();
+    $home->modify_form();
+}
