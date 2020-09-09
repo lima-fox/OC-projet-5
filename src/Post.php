@@ -187,9 +187,18 @@ Class Post extends \Database
                                                 ]);
     }
 
+    public static function delete(int $id)
+    {
+        self::connect();
+
+        self::query("DELETE FROM posts WHERE id = :id", ['id' => $id ]);
+    }
+
     public function getPrettyDate() : string
     {
 
     }
+
+
     
 }

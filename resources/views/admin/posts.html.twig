@@ -8,17 +8,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>DataTables</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">DataTables</li>
-                    </ol>
-                </div>
-            </div>
+
         </div><!-- /.container-fluid -->
     </section>
     <!-- Main content -->
@@ -53,10 +43,10 @@
                                     <td>{{ post.getDateModif() }}</td>
                                     <td>{{ post.getTitle()}}</td>
                                     <td>{{ post.getChapo()[:50]}}</td>
-                                    <td>{{ post.getContent()[:100]|raw}}</td>
+                                    <td>{{ post.getContent()[:150]|raw}}</td>
                                     <td>{{ post.getUser().getFirstname() }}</td>
                                     <td><button type="button" class="btn btn-block bg-gradient-success btn-flat" onclick="location.href='/admin/post/modify?id={{ post.getId() }}'">Modifier</button>
-                                        <button type="button" class="btn btn-block bg-gradient-danger btn-flat" onclick="location.href='/admin/posts/delete?id={{ post.getId() }}'">Supprimer</button></td>
+                                        <button type="button" class="btn btn-block bg-gradient-danger btn-flat" onclick="delete_post('/admin/post/delete?id={{ post.getId() }}')">Supprimer</button></td>
                                 </tr>
                                 {% endfor %}
 
@@ -79,3 +69,15 @@
                     </div>
                     <!-- /.card -->
                     {% endblock %}
+
+{% block js %}
+    <script>
+    function delete_post(url)
+    {
+        if(confirm('Etes vous sûr de vouloir supprimer ce billet?'))
+            {
+                window.location.href = url ;
+            }
+    }
+    </script>
+{% endblock %}

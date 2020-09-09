@@ -52,3 +52,8 @@ elseif (strpos($uri, "/admin/post/modify") !== false)
     $home = new AdminPostController();
     $home->modify_form();
 }
+elseif (strpos($uri, "/admin/post/delete") !== false)
+{
+    $home = new AdminPostController();
+    $home->delete();
+}

@@ -38,7 +38,7 @@ class AdminPostController extends AdminController
             'error_title' => $error_title,
             'error_chapo' => $error_chapo,
             'error_text' => $error_text,
-            'post_sent' => $post_sent,
+            'post_sent' => $post_sent
         ]);
     }
 
@@ -160,14 +160,42 @@ class AdminPostController extends AdminController
             header('Location: /admin/modify_form?id=' . $_POST['post_id']);
         }
 
-
-
     }
 
     public function modify_form()
     {
+        $error_title = null;
+        if(isset($_SESSION['error_title'])) {
+            $error_title = $_SESSION['error_title'];
+            unset($_SESSION['error_title']);
+        }
+
+        $error_chapo = null;
+        if(isset($_SESSION['error_chapo'])) {
+            $error_chapo = $_SESSION['error_chapo'];
+            unset($_SESSION['error_chapo']);
+        }
+
+        $error_text = null;
+        if(isset($_SESSION['error_text'])) {
+            $error_text = $_SESSION['error_text'];
+            unset($_SESSION['error_text']);
+        }
+
         $post = Post::getById($_GET['id']);
 
-        $this->tpl->view("/admin/post_modify.html.twig", ['post' => $post]);
+        $this->tpl->view("/admin/post_modify.html.twig", [
+            'post' => $post,
+            'error_title' => $error_title,
+            'error_chapo' => $error_chapo,
+            'error_text' => $error_text
+        ]);
+    }
+
+    public function delete()
+    {
+        Post::delete($_GET['id']);
+
+        header('Location: /admin/posts_list');
     }
 }

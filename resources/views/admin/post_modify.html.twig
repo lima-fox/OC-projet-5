@@ -12,7 +12,18 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-md-10 mx-auto">
-
+                {% if error_title != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_title }} </div><br>
+                {% endif %}
+                {% if error_chapo != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_chapo }} </div><br/>
+                {% endif %}
+                {% if error_text != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_text }} </div><br/>
+                {% endif %}
                 <p>Apporter les modifications au billet</p><br>
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
