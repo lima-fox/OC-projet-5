@@ -37,50 +37,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="/admin/dashboard" class="nav-link">Accueil</a>
       </li>
       </ul>
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
-      </ul>
   </nav>
   <!-- /.navbar -->
   {% endblock %}
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="/admin/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
+
 
     {% block sidebar %}
     <!-- Sidebar -->
@@ -88,10 +51,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/admin/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="/admin/img/avatar3.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ user_connected.getFirstname() }} {{ user_connected.getLastname() }} </a>
         </div>
       </div>
 
@@ -102,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fas fa-user-cog"></i>
               <p>
                 Gestion
                 <i class="right fas fa-angle-left"></i>
@@ -110,15 +73,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="/admin/posts_list" class="nav-link ">
+                  <i class="fas fa-clipboard-list"></i>
+                  <p>Liste des billets</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/admin/post" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Billets</p>
+                  <i class="fas fa-plus"></i>
+                  <p>Ajouter un billet</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/admin/comments" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Commentaires</p>
+                  <i class="fas fa-comments"></i>
+                  <p>Commentaires en attente</p>
                 </a>
               </li>
             </ul>
@@ -153,11 +122,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-6">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>{{ count }}</h3>
+
+                  <p>Billets</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-clipboard"></i>
+                </div>
+                <a href="/admin/posts_list" class="small-box-footer">Liste complète <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
 
 
 
-          </div>
           <!-- /.col-md-6 -->
 
           </div>
@@ -170,22 +151,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
   <!-- /.content-wrapper -->
   {% endblock %}
-
-
-
-   {% block footer %}
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
-</div>
-<!-- ./wrapper -->
-{% endblock %}
 
 <!-- REQUIRED SCRIPTS -->
 

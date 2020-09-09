@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 
+use App\Post;
 use App\User;
 
 class AdminController
@@ -27,5 +28,12 @@ class AdminController
             http_response_code(403);
             die();
         }
+    }
+
+    public function admin()
+    {
+        $count = Post::count();
+
+        $this->tpl->view("/admin/starter.html.twig", ['count' => $count]);
     }
 }

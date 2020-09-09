@@ -58,6 +58,11 @@
               <a class="nav-link" href="/seconnecter">Se connecter</a>
             </li>
           {% endif %}
+          {% if user_connected.getCategory() == 'admin' %}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/dashboard">Administration</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </div>

@@ -1,15 +1,15 @@
 <?php
 
 use App\Controllers\AdminCommentController;
+use App\Controllers\AdminController;
 use App\Controllers\AdminPostController;
-use App\Controllers\HomeController;
 
 
 $uri = $_SERVER['REQUEST_URI'];
 
 if ($uri == "/admin/dashboard")
 {
-$home = new HomeController();
+$home = new AdminController();
 $home->admin();
 }
 elseif ($uri == "/admin/comments")
