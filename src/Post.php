@@ -199,7 +199,7 @@ Class Post extends \Database
 
     }
 
-    public static function count() : int
+    public static function count_post() : int
     {
         self::connect();
 

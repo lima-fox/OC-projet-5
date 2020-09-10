@@ -213,5 +213,22 @@ class User extends \Database
         }
 
     }
+
+    public static function count_users() : int
+    {
+        self::connect();
+
+        $count = self::query("SELECT COUNT(*) AS total FROM `users`")->fetch();
+
+        return $count['total'];
+    }
+
+    public static function count_login(string $login) : int
+    {
+        self::connect();
+
+        $user_login = self::query("SELECT COUNT(*) AS result FROM users WHERE login = :login", ['login' => $login])->fetch();
+        return $user_login['result'];
+    }
 }
 

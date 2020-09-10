@@ -126,14 +126,58 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>{{ count }}</h3>
-
+                  <h3>{{ count_post }}</h3>
                   <p>Billets</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-clipboard"></i>
                 </div>
                 <a href="/admin/posts_list" class="small-box-footer">Liste complète <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+              <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <h3>{{ count_validated_comments }}</h3>
+
+                    <p>Commentaires validés</p>
+                  </div>
+                  <div class="icon">
+                    <i class="far fa-comments"></i>
+                  </div>
+                  <a href="#" class="small-box-footer">...</a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3>{{ count_pending_comments }}</h3>
+
+                  <p>Commentaires en attente de validation</p>
+                </div>
+                <div class="icon">
+                  <i class="far fa-comment-dots"></i>
+                </div>
+                <a href="/admin/comments" class="small-box-footer">Gérer les commentaires <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>{{ count_users }}</h3>
+
+                  <p>Utilisateurs</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <a href="#" class="small-box-footer">...</a>
               </div>
             </div>
 
