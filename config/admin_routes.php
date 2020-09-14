@@ -1,7 +1,9 @@
 <?php
 
 use App\Controllers\AdminCommentController;
+use App\Controllers\AdminPostController;
 use App\Controllers\HomeController;
+
 
 $uri = $_SERVER['REQUEST_URI'];
 
@@ -23,5 +25,35 @@ elseif (strpos($uri, "/admin/comments/validate") !== false)
 elseif (strpos($uri, "/admin/comments/delete") !== false)
 {
     $home = new AdminCommentController();
+    $home->delete();
+}
+elseif ($uri == "/admin/post")
+{
+    $home = new AdminPostController();
+    $home->add_post();
+}
+elseif ($uri == "/admin/post/send")
+{
+    $home = new AdminPostController();
+    $home->create();
+}
+elseif ($uri == "/admin/posts_list")
+{
+    $home = new AdminPostController();
+    $home->list();
+}
+elseif ($uri == "/admin/post_modify")
+{
+    $home = new AdminPostController();
+    $home->modify_send();
+}
+elseif (strpos($uri, "/admin/post/modify") !== false)
+{
+    $home = new AdminPostController();
+    $home->modify_form();
+}
+elseif (strpos($uri, "/admin/post/delete") !== false)
+{
+    $home = new AdminPostController();
     $home->delete();
 }

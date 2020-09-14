@@ -4,22 +4,24 @@ namespace App;
 Class Post extends \Database
 {
     private int $id;
-    private string $date;
+    private string $date_post;
     private ?string $date_modif;
     private string $title;
     private string $chapo;
     private string $content;
     private int $author;
+    private ?User $user;
 
-    public function __construct(int $id, string $date, ?string $date_modif, string $title, string $chapo, string $content, int $author)
+    public function __construct(int $id, string $date_post, ?string $date_modif, string $title, string $chapo, string $content, int $author)
     {
         $this->id = $id;
-        $this->date = $date;
+        $this->date_post = $date_post;
         $this->date_modif = $date_modif;
         $this->title = $title;
         $this->chapo = $chapo;
         $this->content = $content;
         $this->author = $author;
+        $this->user = User::getById($author);
         
     }
 
@@ -29,12 +31,12 @@ Class Post extends \Database
         return $this->id;
     }
 
-    public function getDate() : string
+    public function getDatePost() : string
     {
-        return $this->date;
+        return $this->date_post;
     }
 
-    public function getDate_modif() : ?string
+    public function getDateModif() : ?string
     {
         return $this->date_modif;
     }
@@ -64,15 +66,33 @@ Class Post extends \Database
         return $this->author;
     }
 
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     */
+    public function setUser(?User $user): void
+    {
+        $this->user = $user;
+    }
+
+
+
     //liste des setters
     public function setId(int $id)
     {
          $this->id = $id;
     }
 
-    public function setDate(string $date)
+    public function setDatePost(string $date_post)
     {
-        $this->date = $date;
+        $this->date_post = $date_post;
     }
 
     public function setDateModif(?string $date_modif)
@@ -104,12 +124,12 @@ Class Post extends \Database
     {
         self::connect();
 
-        $result = self::query('SELECT * ,DATE_FORMAT(`date`,"%d/%m/%Y à %Hh%imin%ss") AS date_post 
+        $result = self::query('SELECT *  
                                     FROM posts 
                                     WHERE id = :id', ['id' => $id])->fetch();
         if (is_array($result))
         {
-            $post = new Post($result['id'], $result['date'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
+            $post = new Post($result['id'], $result['date_post'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
             return $post;
         }
         else
@@ -122,18 +142,63 @@ Class Post extends \Database
     public static function getAll() : array
     {
         self::connect();
-        $results = self::query('SELECT * ,DATE_FORMAT(`date`,"%d/%m/%Y à %Hh%imin%ss") AS date_post FROM posts ORDER BY `date` DESC');
+        $results = self::query('SELECT * FROM posts ORDER BY `date_post` DESC');
 
         $posts = [];
 
         foreach($results AS $result)
         {
-            $post = new Post($result['id'], $result['date'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
+            $post = new Post($result['id'], $result['date_post'], $result['date_modif'], $result['title'], $result['chapo'], $result['content'], $result['author']);
             $posts[] = $post;
         }
         return $posts;
 
 
     }
+
+    public static function create(string $title, string $chapo, string $content, string $author)
+    {
+        self::connect();
+
+        self::execute("INSERT INTO `posts`(`date_post`, `title`, `chapo`, `content`, `author`) 
+                            VALUES (:date_post, :title, :chapo, :content, :author)",
+                            ['date_post' => date("Y-m-d H:i:s"),
+                                'title' => $title,
+                                'chapo' => $chapo,
+                                'content' => $content,
+                                'author' => $author]);
+    }
+
+    public static function modify(string $title, string $chapo, string $content, int $id)
+    {
+        self::connect();
+
+        self::execute("UPDATE `posts` SET `date_modif`= :date_modif,
+                                                `title`= :title,
+                                                `chapo`= :chapo,
+                                                `content`= :content                                                 
+                                                WHERE id = :id",
+                                                [
+                                                    'date_modif' => date("Y-m-d H:i:s"),
+                                                    'title' => $title,
+                                                    'chapo' => $chapo,
+                                                    'content' => $content,
+                                                    'id' => $id
+                                                ]);
+    }
+
+    public static function delete(int $id)
+    {
+        self::connect();
+
+        self::query("DELETE FROM posts WHERE id = :id", ['id' => $id ]);
+    }
+
+    public function getPrettyDate() : string
+    {
+
+    }
+
+
     
 }

@@ -20,18 +20,19 @@
             </h3>
           </a>
             <p class="post-subtitle ">
-               {{ post.getContent()[:250]|e }}...         
+               {{ post.getContent()[:250]|raw }}...
             <a class="btn btn-primary float-right" href="/billet?id={{ post.getId() }}">Lire la suite &rarr;</a>
             </p>
           <p class="post-meta">
             {{ post.getDate()|e }}</p>
         </div>
         <hr>
-        <!-- Pager -->        
+        <!-- Pager -->
       </div>
     </div>
   </div>
   {% endfor %}
+
         <div class="clearfix col-lg-8 col-md-10 mx-auto ">
           <a class="btn btn-primary float-right" href="http://blog5.test/post">Voir plus de billets &rarr;</a>
         </div>
