@@ -8,6 +8,36 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
+                {% if error_login != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_login }} </div><br>
+                {% endif %}
+                {% if error_firstname != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_firstname }} </div><br/>
+                {% endif %}
+                {% if error_lastname != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_lastname }} </div><br/>
+                {% endif %}
+                {% if error_mail != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_mail }}</div>
+                {% endif %}
+                {% if error_phone != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_phone }} </div><br/>
+                {% endif %}
+                {% if error_pass != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_pass }}</div>
+                {% endif %}
+
+                {% if register_sent == 1 %}
+                    <div class="alert alert-success" role="alert">
+                        <a href="/seconnecter">Vous êtes maintenant enregistré, vous pouvez vous connecter </a>
+                    </div>
+                {% endif %}
                 <p>Merci de remplir le formulaire pour vous inscrire</p>
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
@@ -51,15 +81,15 @@
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
                             <label>Mot de passe</label>
-                            <input type="password" class="form-control" placeholder="mot de passe" id="pass" name="pass" required data-validation-required-message="Veuillez entrer votre adresse mail">
+                            <input type="password" class="form-control" placeholder="mot de passe 6 caractères minimum" id="pass" name="pass" required data-validation-required-message="Veuillez entrer votre adresse mail">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
 
                     <br>
                     <div id="success"></div>
-                    <button type="submit" class="btn btn-primary" id="sendMessageButton">S'enregistrer</button>
-
+                    <button type="submit" class="btn btn-primary" id="sendMessageButton">S'enregistrer</button><br><br>
+                    <a href="/seconnecter" class="connect">Se connecter</a>
                 </form>
             </div>
         </div>

@@ -31,6 +31,3 @@ Class Database
 
 }
 
-
-//$link = mysql_connect($this->user, $this->host, $this->pass, $this->db);
-//return $link;

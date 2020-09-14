@@ -59,6 +59,11 @@ elseif ($uri == "/disconnect")
     $home = new LoginController();
     $home->disconnect();
 }
+elseif ($uri == "/register")
+{
+    $home = new LoginController();
+    $home->register_form();
+}
 elseif ($uri == "/register/send")
 {
     $home = new LoginController();

@@ -164,11 +164,11 @@ class User extends \Database
     }
 
 
-    public static function verify(string $login, string $pass) : ?User
+    public static function getByLogin(string $login) : ?User
     {
         self::connect();
 
-        $result = self::query(sprintf("SELECT * FROM users WHERE login = '%s' AND pass ='%s'", $login, $pass))->fetch();
+        $result = self::query(sprintf("SELECT * FROM users WHERE login = '%s'", $login))->fetch();
         if($result)
         {
             $user = new User($result['id'],
@@ -229,6 +229,21 @@ class User extends \Database
 
         $user_login = self::query("SELECT COUNT(*) AS result FROM users WHERE login = :login", ['login' => $login])->fetch();
         return $user_login['result'];
+    }
+
+    public static function create(string $login, string $pass, string $lastname, string $firstname, string $mail, string $phone)
+    {
+        self::connect();
+
+        self::execute("INSERT INTO `users`(`login`, `pass`, `lastname`, `firstname`, `mail`, `phone`, `category`) 
+                            VALUES (:login, :pass , :lastname, :firstname, :mail, :phone, :category)",
+                            ['login' => $login,
+                                'pass' => $pass,
+                                'lastname' => $lastname,
+                                'firstname' => $firstname,
+                                'mail' => $mail,
+                                'phone' => $phone,
+                                'category' => 'users']);
     }
 }
 

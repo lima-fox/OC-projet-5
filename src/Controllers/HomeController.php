@@ -32,8 +32,14 @@ class HomeController
             $error = $_SESSION['error'];
             unset($_SESSION['error']);
         }
+        $register_sent = 0;
+        if(isset($_SESSION['register_sent'])) {
+            $register_sent = $_SESSION['register_sent'];
+            unset($_SESSION['register_sent']);
+        }
 
-        $this->tpl->view("authentication.html.twig" , ['error'=>$error]);
+        $this->tpl->view("authentication.html.twig" , ['error'=>$error,
+                                                                'register_sent' => $register_sent]);
     }
     
     
