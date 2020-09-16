@@ -17,8 +17,9 @@ class LoginController
     {
         $user = User::getByLogin($_POST['login']);
         $isPasswordCorrect = password_verify($_POST['pass'], $user->getPass());
+        $active = $user->getActive();
 
-        if($user != null AND $isPasswordCorrect)
+        if($user != null AND $isPasswordCorrect AND $active == 1)
         {
             $_SESSION['user_login'] = $user->getId();
             header('Location: /');
@@ -180,14 +181,52 @@ class LoginController
             }
         }
 
+        $hash = md5( rand(0,1000) );
+
         if ($login != '' AND $pass_hash != '' AND $lastname != '' AND $firstname != '' AND $email != '' AND $isPhoneValid == true  )
         {
-            User::create($login, $pass_hash, $lastname, $firstname, $email, $phone );
+            User::create($login, $pass_hash, $lastname, $firstname, $email, $phone, $hash);
             $_SESSION['register_sent'] = 1;
+
+            $to      = $email; // Send email to our user
+            $subject = 'Activez votre adresse mail'; // Give the email a subject
+            $message = '
+ 
+            Bonjour '.sprintf('%s %s', $firstname, $lastname).'  
+            
+            Votre compte a bien été enregistré, 
+            
+             
+            Merci de cliquer sur le lien ci-dessous afin de l\'activer.
+            http://blog5.test/verify/mail?hash='.$hash.'
+             
+            '; // Our message above including the link
+
+            mail($to, $subject, $message); // Send our email
+
             header('Location: /seconnecter');
         }
+        else
+        {
+            header('Location: /register');
+        }
 
-        header('Location: /register');
+
+    }
+
+    public function verify_mail()
+    {
+        if (!empty($_GET['hash']))
+        {
+            User::active_mail($_GET['hash']);
+            $_SESSION['active_mail'] = 'Votre email est bien validé';
+            header('Location: /seconnecter');
+        }
+        else
+        {
+            $_SESSION['error_hash'] = 'Impossible de valider votre email';
+            header('Location: /seconnecter');
+        }
     }
 
 }

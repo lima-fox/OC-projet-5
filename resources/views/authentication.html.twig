@@ -13,6 +13,11 @@
           {{ error }}
         </div>
         {% endif %}
+        {% if register_sent == 1 %}
+          <div class="alert alert-success" role="alert">
+            <a href="/seconnecter">Vous êtes maintenant enregistré, validez votre adresse mail pour pouvoir vous connecter </a>
+          </div>
+        {% endif %}
         <p></p>
         <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
         <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
@@ -36,8 +41,8 @@
           <br>
           <div id="success"></div>
           <button type="submit" class="btn btn-primary" id="sendMessageButton">Se connecter</button><br><br>
-          <a href="/register">S'enregistrer</a>
         </form>
+        <button class="btn btn-primary" onclick="location.href='/register'">S'enregistrer</button>
       </div>
     </div>
   </div>

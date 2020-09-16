@@ -11,6 +11,8 @@ class User extends \Database
     private string $mail;
     private string $phone;
     private string $category;
+    private string $hash;
+    private int $active;
 
     /**
      * Users constructor.
@@ -22,8 +24,10 @@ class User extends \Database
      * @param string $mail
      * @param string $phone
      * @param string $category
+     * @param string $hash
+     * @param int $active
      */
-    public function __construct(int $id, string $login, string $pass, string $lastname, string $firstname, string $mail, string $phone, string $category)
+    public function __construct(int $id, string $login, string $pass, string $lastname, string $firstname, string $mail, string $phone, string $category, string $hash, int $active)
     {
         $this->id = $id;
         $this->login = $login;
@@ -33,6 +37,8 @@ class User extends \Database
         $this->mail = $mail;
         $this->phone = $phone;
         $this->category = $category;
+        $this->hash = $hash;
+        $this->active = $active;
     }
 
     /**
@@ -163,6 +169,40 @@ class User extends \Database
         $this->category = $category;
     }
 
+    /**
+     * @return string
+     */
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param string $hash
+     */
+    public function setHash(string $hash): void
+    {
+        $this->hash = $hash;
+    }
+
+    /**
+     * @return int
+     */
+    public function getActive(): int
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param int $active
+     */
+    public function setActive(int $active): void
+    {
+        $this->active = $active;
+    }
+
+
+
 
     public static function getByLogin(string $login) : ?User
     {
@@ -178,7 +218,9 @@ class User extends \Database
                 $result['firstname'],
                 $result['mail'],
                 $result['phone'],
-                $result['category']);
+                $result['category'],
+                $result['hash'],
+                $result['active']);
             return $user;
         }
         else
@@ -204,7 +246,9 @@ class User extends \Database
                 $result['firstname'],
                 $result['mail'],
                 $result['phone'],
-                $result['category']);
+                $result['category'],
+                $result['hash'],
+                $result['active']);
             return $user;
         }
         else
@@ -231,19 +275,28 @@ class User extends \Database
         return $user_login['result'];
     }
 
-    public static function create(string $login, string $pass, string $lastname, string $firstname, string $mail, string $phone)
+    public static function create(string $login, string $pass, string $lastname, string $firstname, string $mail, string $phone, string $hash)
     {
         self::connect();
 
-        self::execute("INSERT INTO `users`(`login`, `pass`, `lastname`, `firstname`, `mail`, `phone`, `category`) 
-                            VALUES (:login, :pass , :lastname, :firstname, :mail, :phone, :category)",
+        self::execute("INSERT INTO `users`(`login`, `pass`, `lastname`, `firstname`, `mail`, `phone`, `category`, `hash`, `active`) 
+                            VALUES (:login, :pass , :lastname, :firstname, :mail, :phone, :category, :hash, :active)",
                             ['login' => $login,
                                 'pass' => $pass,
                                 'lastname' => $lastname,
                                 'firstname' => $firstname,
                                 'mail' => $mail,
                                 'phone' => $phone,
-                                'category' => 'users']);
+                                'category' => 'users',
+                                'hash' => $hash,
+                                'active' => 0]);
+    }
+
+    public static function active_mail(string $hash)
+    {
+        self::connect();
+
+        self::execute("UPDATE `users` SET `active`= 1 WHERE `hash` = :hash", ['hash' => $hash]);
     }
 }
 

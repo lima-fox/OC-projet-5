@@ -69,3 +69,9 @@ elseif ($uri == "/register/send")
     $home = new LoginController();
     $home->register_send();
 }
+elseif (strpos($uri, "/verify/mail") !== false)
+{
+    $home = new LoginController();
+    $home->verify_mail();
+}
+
