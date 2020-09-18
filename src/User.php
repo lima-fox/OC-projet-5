@@ -298,5 +298,30 @@ class User extends \Database
 
         self::execute("UPDATE `users` SET `active`= 1 WHERE `hash` = :hash", ['hash' => $hash]);
     }
+
+    public static function getByMail(string $mail) : ?User
+    {
+        self::connect();
+
+        $result = self::query(sprintf("SELECT * FROM users WHERE mail = '%s'", $mail))->fetch();
+        if($result)
+        {
+            $user = new User($result['id'],
+                $result['login'],
+                $result['pass'],
+                $result['lastname'],
+                $result['firstname'],
+                $result['mail'],
+                $result['phone'],
+                $result['category'],
+                $result['hash'],
+                $result['active']);
+            return $user;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
 

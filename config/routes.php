@@ -74,4 +74,14 @@ elseif (strpos($uri, "/verify/mail") !== false)
     $home = new LoginController();
     $home->verify_mail();
 }
+elseif ($uri == "/reset_password")
+{
+    $home = new LoginController();
+    $home->reset_password_form();
+}
+elseif ($uri == "/reset_password/send")
+{
+    $home = new LoginController();
+    $home->reset_password_send();
+}
 

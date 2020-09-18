@@ -229,4 +229,40 @@ class LoginController
         }
     }
 
+    public function reset_password_form()
+    {
+        $this->tpl->view("password_reset_form.html.twig");
+    }
+
+    public function reset_password_send()
+    {
+        if (!empty($_POST['mail']))
+        {
+            $user = User::getByMail($_POST['mail']);
+            $active = $user->getActive();
+            $firstname = $user->getFirstname();
+            $lastname = $user->getLastname();
+            if ($active == 1)
+            {
+                $hash = substr(md5(time()), 0, 16);
+
+                $to      = $_POST['mail']; // Send email to our user
+                $subject = 'Réinitialiser votre mot de passe'; // Give the email a subject
+                $message = '
+ 
+            Bonjour '.sprintf('%s %s', $firstname, $lastname).'  
+            
+                      
+             
+            Merci de cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe
+            http://blog5.test/reset_password/init?hash='.$hash.'
+             
+            '; // Our message above including the link
+
+                mail($to, $subject, $message); // Send our email
+            }
+        }
+
+    }
+
 }
