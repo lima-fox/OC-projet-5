@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+use App\PasswordResets;
 use App\User;
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberUtil;
@@ -231,11 +232,26 @@ class LoginController
 
     public function reset_password_form()
     {
-        $this->tpl->view("password_reset_form.html.twig");
+        $mail_reject = null;
+        if(isset($_SESSION['mail_reject'])) {
+            $mail_reject = $_SESSION['mail_reject'];
+            unset($_SESSION['mail_reject']);
+        }
+
+        $mail_empty = null;
+        if(isset($_SESSION['mail_empty'])) {
+            $mail_empty = $_SESSION['mail_empty'];
+            unset($_SESSION['mail_empty']);
+        }
+
+        $this->tpl->view("password_reset_form.html.twig", ['mail_reject' => $mail_reject,
+                                                                    'mail_empty' => $mail_empty]);
+
     }
 
     public function reset_password_send()
     {
+
         if (!empty($_POST['mail']))
         {
             $user = User::getByMail($_POST['mail']);
@@ -245,9 +261,10 @@ class LoginController
             if ($active == 1)
             {
                 $hash = substr(md5(time()), 0, 16);
+                PasswordResets::create($user->getId(), $_POST['mail'], $hash);
 
                 $to      = $_POST['mail']; // Send email to our user
-                $subject = 'Réinitialiser votre mot de passe'; // Give the email a subject
+                $subject = 'Reinitialiser votre mot de passe'; // Give the email a subject
                 $message = '
  
             Bonjour '.sprintf('%s %s', $firstname, $lastname).'  
@@ -260,7 +277,92 @@ class LoginController
             '; // Our message above including the link
 
                 mail($to, $subject, $message); // Send our email
+                $_SESSION['mail_reset'] = 'L\'email de réinitialisation de votre mot de passe a bien été envoyé';
+                header('Location: /seconnecter');
             }
+            else
+            {
+                $_SESSION['mail_reject'] = 'Votre adresse mail doit être active afin de réinitialiser votre mot de passe';
+                header('Location: /reset_password/form');
+            }
+        }
+        else
+        {
+            $_SESSION['mail_empty'] = 'Merci d\'entrer une adresse mail valide';
+            header('Location: /reset_password/form');
+        }
+
+    }
+
+    public function new_password_form()
+    {
+        if (!empty($_GET['hash']))
+        {
+            $error_pass = null;
+            if(isset($_SESSION['error_pass'])) {
+                $error_pass = $_SESSION['error_pass'];
+                unset($_SESSION['error_pass']);
+            }
+            $error_pass2 = null;
+            if(isset($_SESSION['error_pass2'])) {
+                $error_pass2 = $_SESSION['error_pass2'];
+                unset($_SESSION['error_pass2']);
+            }
+
+            $hash_pass = $_GET['hash'];
+            $user = User::getByHashPass($hash_pass);
+
+
+            $this->tpl->view("new_password.html.twig", ['user' => $user,
+                                                                'error_pass' => $error_pass,
+                                                                'error_pass2' => $error_pass2]);
+        }
+        else
+        {
+            $_SESSION['error_hash_pass'] = 'Impossible de réinitialiser votre mot de passe';
+            header('Location: /seconnecter');
+        }
+
+
+    }
+
+    public function new_password_send()
+    {
+
+        $pass = '';
+        $pass2 = $_POST['pass2'];
+        $pass_hash = '';
+        $user_id = $_POST['user_id'];
+        if (isset($_POST['pass']))
+        {
+            if (strlen($_POST['pass']) < 6)
+            {
+                $_SESSION['error_pass'] = 'Le mot de passe doit comporter au moins 6 caractères';
+            }
+            else
+            {
+                $pass = $_POST['pass'];
+            }
+        }
+
+        if ($pass == $pass2)
+        {
+            $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
+        }
+        else
+        {
+            $_SESSION['error_pass2'] = 'Les 2 mots de passe ne sont pas identique';
+        }
+
+        if ($pass_hash != '')
+        {
+            PasswordResets::modify_password($user_id, $pass_hash);
+            $_SESSION['password_modify'] = 'Votre mot de passe a bien été changé';
+            header('Location: /seconnecter');
+        }
+        else
+        {
+            header(" Location: /reset_password/init?hash=".$_GET['hash']) ;
         }
 
     }

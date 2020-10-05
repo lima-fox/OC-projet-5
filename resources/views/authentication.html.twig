@@ -13,9 +13,24 @@
           {{ error }}
         </div>
         {% endif %}
+        {% if error_hash_pass != null %}
+          <div class="alert alert-danger" role="alert">
+            {{ error_hash_pass }}
+          </div>
+        {% endif %}
         {% if register_sent == 1 %}
           <div class="alert alert-success" role="alert">
             <a href="/seconnecter">Vous êtes maintenant enregistré, validez votre adresse mail pour pouvoir vous connecter </a>
+          </div>
+        {% endif %}
+        {% if mail_reset != null %}
+          <div class="alert alert-success" role="alert">
+            {{ mail_reset }}
+          </div>
+        {% endif %}
+        {% if password_modify != null %}
+          <div class="alert alert-success" role="alert">
+            {{ password_modify }}
           </div>
         {% endif %}
         <p></p>

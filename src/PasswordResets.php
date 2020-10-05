@@ -104,6 +104,17 @@ class PasswordResets extends \Database
         );
     }
 
+    public static function modify_password(int $user_id, string $pass)
+    {
+        self::connect();
+
+        self::execute("UPDATE `users` SET `pass` = :pass WHERE `id` = :user_id" ,
+                            ['user_id' => $user_id,
+                                'pass' => $pass]);
+    }
+
+
+
 
 }
 

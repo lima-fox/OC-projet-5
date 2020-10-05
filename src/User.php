@@ -323,5 +323,33 @@ class User extends \Database
             return null;
         }
     }
+
+    public static function getByHashPass(string $hash_pass) : ?User
+    {
+        self::connect();
+
+        $result = self::query("SELECT users.* FROM `users` INNER JOIN password_resets ON users.id = password_resets.users_id 
+                            WHERE hash_pass = :hash_pass",
+                            ['hash_pass' => $hash_pass])->fetch();
+
+        if($result)
+        {
+            $user = new User($result['id'],
+                $result['login'],
+                $result['pass'],
+                $result['lastname'],
+                $result['firstname'],
+                $result['mail'],
+                $result['phone'],
+                $result['category'],
+                $result['hash'],
+                $result['active']);
+            return $user;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
 
