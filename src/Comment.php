@@ -211,5 +211,23 @@ class Comment extends \Database
         self::query("DELETE FROM comments WHERE id = :id", ['id' => $id ]);
     }
 
+    public static function validated_comments() : int
+    {
+        self::connect();
+
+        $count = self::query("SELECT COUNT(*) AS total FROM `comments` WHERE status = 1")->fetch();
+
+        return $count['total'];
+    }
+
+    public static function pending_comments() : int
+    {
+        self::connect();
+
+        $count = self::query("SELECT COUNT(*) AS total FROM `comments` WHERE status = 0")->fetch();
+
+        return $count['total'];
+    }
+
 
 }

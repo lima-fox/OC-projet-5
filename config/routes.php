@@ -59,3 +59,38 @@ elseif ($uri == "/disconnect")
     $home = new LoginController();
     $home->disconnect();
 }
+elseif ($uri == "/register")
+{
+    $home = new LoginController();
+    $home->register_form();
+}
+elseif ($uri == "/register/send")
+{
+    $home = new LoginController();
+    $home->register_send();
+}
+elseif (strpos($uri, "/verify/mail") !== false)
+{
+    $home = new LoginController();
+    $home->verify_mail();
+}
+elseif ($uri == "/reset_password/form")
+{
+    $home = new LoginController();
+    $home->reset_password_form();
+}
+elseif ($uri == "/reset_password/send")
+{
+    $home = new LoginController();
+    $home->reset_password_send();
+}
+elseif (strpos($uri, "/reset_password/init") !== false)
+{
+    $home = new LoginController();
+    $home->new_password_form();
+}
+elseif ($uri == "/new_password/send")
+{
+    $home = new LoginController();
+    $home->new_password_send();
+}

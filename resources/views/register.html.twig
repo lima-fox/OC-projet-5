@@ -1,0 +1,95 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Blog5 - S'enregistrer{% endblock %}
+
+{% block content %}
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% if error_login != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_login }} </div><br>
+                {% endif %}
+                {% if error_firstname != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_firstname }} </div><br/>
+                {% endif %}
+                {% if error_lastname != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_lastname }} </div><br/>
+                {% endif %}
+                {% if error_mail != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_mail }}</div>
+                {% endif %}
+                {% if error_phone != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_phone }} </div><br/>
+                {% endif %}
+                {% if error_pass != null %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_pass }}</div>
+                {% endif %}
+
+                <p>Merci de remplir le formulaire pour vous inscrire</p>
+                <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+                <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+                <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+                <form name="register" id="contactForm" action="/register/send" method="POST"  novalidate>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>login</label>
+                            <input type="text" class="form-control" placeholder="login" id="login" name="login" required data-validation-required-message="Veuillez entrer votre nom">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>firstname</label>
+                            <input type="text" class="form-control" placeholder="prénom" id="firstname" name="firstname" required data-validation-required-message="Veuillez entrer votre nom">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>lastname</label>
+                            <input type="text" class="form-control" placeholder="nom de famille" id="lastname" name="lastname" required data-validation-required-message="Veuillez entrer votre nom">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Adresse mail</label>
+                            <input type="email" class="form-control" placeholder="Adresse mail" id="email" name="email" required data-validation-required-message="Veuillez entrer votre adresse mail">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Numéro de téléphone</label>
+                            <input type="tel" class="form-control" placeholder="Numéro de téléphone" id="phone" name="phone" required data-validation-required-message="Veuillez entrer votre numéro de téléphone">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Mot de passe</label>
+                            <input type="password" class="form-control" placeholder="mot de passe 6 caractères minimum" id="pass" name="pass" required data-validation-required-message="Veuillez entrer votre adresse mail">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div id="success"></div>
+                    <button type="submit" class="btn btn-primary" id="sendMessageButton">S'enregistrer</button><br><br>
+
+                </form>
+                <button class="btn btn-primary" onclick="location.href='/seconnecter'">Se connecter</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+{% endblock %}

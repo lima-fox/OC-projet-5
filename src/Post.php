@@ -199,6 +199,15 @@ Class Post extends \Database
 
     }
 
+    public static function count_post() : int
+    {
+        self::connect();
+
+        $count = self::query("SELECT COUNT(*) AS total FROM `posts`")->fetch();
+
+        return $count['total'];
+    }
+
 
     
 }

@@ -11,6 +11,8 @@ class User extends \Database
     private string $mail;
     private string $phone;
     private string $category;
+    private string $hash;
+    private int $active;
 
     /**
      * Users constructor.
@@ -22,8 +24,10 @@ class User extends \Database
      * @param string $mail
      * @param string $phone
      * @param string $category
+     * @param string $hash
+     * @param int $active
      */
-    public function __construct(int $id, string $login, string $pass, string $lastname, string $firstname, string $mail, string $phone, string $category)
+    public function __construct(int $id, string $login, string $pass, string $lastname, string $firstname, string $mail, string $phone, string $category, string $hash, int $active)
     {
         $this->id = $id;
         $this->login = $login;
@@ -33,6 +37,8 @@ class User extends \Database
         $this->mail = $mail;
         $this->phone = $phone;
         $this->category = $category;
+        $this->hash = $hash;
+        $this->active = $active;
     }
 
     /**
@@ -163,12 +169,46 @@ class User extends \Database
         $this->category = $category;
     }
 
+    /**
+     * @return string
+     */
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
 
-    public static function verify(string $login, string $pass) : ?User
+    /**
+     * @param string $hash
+     */
+    public function setHash(string $hash): void
+    {
+        $this->hash = $hash;
+    }
+
+    /**
+     * @return int
+     */
+    public function getActive(): int
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param int $active
+     */
+    public function setActive(int $active): void
+    {
+        $this->active = $active;
+    }
+
+
+
+
+    public static function getByLogin(string $login) : ?User
     {
         self::connect();
 
-        $result = self::query(sprintf("SELECT * FROM users WHERE login = '%s' AND pass ='%s'", $login, $pass))->fetch();
+        $result = self::query(sprintf("SELECT * FROM users WHERE login = '%s'", $login))->fetch();
         if($result)
         {
             $user = new User($result['id'],
@@ -178,7 +218,9 @@ class User extends \Database
                 $result['firstname'],
                 $result['mail'],
                 $result['phone'],
-                $result['category']);
+                $result['category'],
+                $result['hash'],
+                $result['active']);
             return $user;
         }
         else
@@ -204,7 +246,9 @@ class User extends \Database
                 $result['firstname'],
                 $result['mail'],
                 $result['phone'],
-                $result['category']);
+                $result['category'],
+                $result['hash'],
+                $result['active']);
             return $user;
         }
         else
@@ -212,6 +256,100 @@ class User extends \Database
             return null;
         }
 
+    }
+
+    public static function count_users() : int
+    {
+        self::connect();
+
+        $count = self::query("SELECT COUNT(*) AS total FROM `users`")->fetch();
+
+        return $count['total'];
+    }
+
+    public static function count_login(string $login) : int
+    {
+        self::connect();
+
+        $user_login = self::query("SELECT COUNT(*) AS result FROM users WHERE login = :login", ['login' => $login])->fetch();
+        return $user_login['result'];
+    }
+
+    public static function create(string $login, string $pass, string $lastname, string $firstname, string $mail, string $phone, string $hash)
+    {
+        self::connect();
+
+        self::execute("INSERT INTO `users`(`login`, `pass`, `lastname`, `firstname`, `mail`, `phone`, `category`, `hash`, `active`) 
+                            VALUES (:login, :pass , :lastname, :firstname, :mail, :phone, :category, :hash, :active)",
+                            ['login' => $login,
+                                'pass' => $pass,
+                                'lastname' => $lastname,
+                                'firstname' => $firstname,
+                                'mail' => $mail,
+                                'phone' => $phone,
+                                'category' => 'users',
+                                'hash' => $hash,
+                                'active' => 0]);
+    }
+
+    public static function active_mail(string $hash)
+    {
+        self::connect();
+
+        self::execute("UPDATE `users` SET `active`= 1 WHERE `hash` = :hash", ['hash' => $hash]);
+    }
+
+    public static function getByMail(string $mail) : ?User
+    {
+        self::connect();
+
+        $result = self::query(sprintf("SELECT * FROM users WHERE mail = '%s'", $mail))->fetch();
+        if($result)
+        {
+            $user = new User($result['id'],
+                $result['login'],
+                $result['pass'],
+                $result['lastname'],
+                $result['firstname'],
+                $result['mail'],
+                $result['phone'],
+                $result['category'],
+                $result['hash'],
+                $result['active']);
+            return $user;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static function getByHashPass(string $hash_pass) : ?User
+    {
+        self::connect();
+
+        $result = self::query("SELECT users.* FROM `users` INNER JOIN password_resets ON users.id = password_resets.users_id 
+                            WHERE hash_pass = :hash_pass",
+                            ['hash_pass' => $hash_pass])->fetch();
+
+        if($result)
+        {
+            $user = new User($result['id'],
+                $result['login'],
+                $result['pass'],
+                $result['lastname'],
+                $result['firstname'],
+                $result['mail'],
+                $result['phone'],
+                $result['category'],
+                $result['hash'],
+                $result['active']);
+            return $user;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
 
