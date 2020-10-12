@@ -9,12 +9,12 @@ use App\Controllers\PostController;
 
 $uri = $_SERVER['REQUEST_URI'];
 
-if ($uri == "/")
-{
-    $home = new HomeController();
-    $home->index();
-}
-elseif ($uri == "/a-propos")
+//if ($uri == "/")
+//{
+    //$home = new HomeController();
+    //$home->index();
+//}
+if ($uri == "/a-propos")
 {
     $home = new HomeController();
     $home->apropos();
@@ -34,7 +34,7 @@ elseif ($uri == "/comment/send")
     $home = new CommentController();
     $home->add_comment();
 }
-elseif ($uri == "/contact")
+elseif ($uri == "/")
 {
     $home = new ContactController();
     $home->contact();

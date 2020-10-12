@@ -30,7 +30,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="/">Start Bootstrap</a>
+      <a class="navbar-brand" href="/CV.pdf">Mon CV</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -40,15 +40,15 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Accueil</a>
           </li>
-          <li class="nav-item">
+          {#  <li class="nav-item">
             <a class="nav-link" href="/a-propos">A propos</a>
-          </li>
+          </li> #}
           <li class="nav-item">
             <a class="nav-link" href="/post">Billets</a>
           </li>
-          <li class="nav-item">
+          {#  <li class="nav-item">
             <a class="nav-link" href="/contact">Contact</a>
-          </li>
+          </li> #}
           {% if user_connected != null %}
           <li class="nav-item">
             <a class="nav-link" href="/disconnect">Se déconnecter</a>
@@ -58,11 +58,7 @@
               <a class="nav-link" href="/seconnecter">Se connecter</a>
             </li>
           {% endif %}
-          {% if user_connected.getCategory() == 'admin' %}
-          <li class="nav-item">
-            <a class="nav-link" href="/admin/dashboard">Administration</a>
-          </li>
-          {% endif %}
+
         </ul>
       </div>
     </div>
@@ -71,7 +67,7 @@
 
     {% block header %}
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('/img/home-bg.jpg')">
+  <header class="masthead" style="background-image: url('/img/aurora.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
