@@ -156,7 +156,7 @@ Class Post extends \Database
 
     }
 
-    public static function create(string $title, string $chapo, string $content, string $author)
+    public static function create(string $title, string $chapo, string $content, int $author)
     {
         self::connect();
 

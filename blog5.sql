@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:33060
--- Généré le : mar. 06 oct. 2020 à 09:16
+-- Généré le : lun. 19 oct. 2020 à 16:00
 -- Version du serveur :  5.7.29-0ubuntu0.18.04.1
 -- Version de PHP : 7.4.5
 
@@ -166,7 +166,7 @@ ALTER TABLE `password_resets`
 -- Contraintes pour la table `posts`
 --
 ALTER TABLE `posts`
-  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

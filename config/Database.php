@@ -9,6 +9,7 @@ Class Database
         try
         {
             self::$bdd = new \PDO('mysql:host=localhost;dbname=blog5;charset=utf8', 'homestead', 'secret');
+            self::$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(Exception $e)
         {
