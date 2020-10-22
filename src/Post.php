@@ -194,10 +194,6 @@ Class Post extends \Database
         self::query("DELETE FROM posts WHERE id = :id", ['id' => $id ]);
     }
 
-    public function getPrettyDate() : string
-    {
-
-    }
 
     public static function count_post() : int
     {

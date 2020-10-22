@@ -1,15 +1,26 @@
 <?php
- 
+
 Class Database
 {
     private static $bdd;
 
     public static function connect()
     {
+
+        $credentials = [
+            'host'      => 'localhost',
+            'user'      => 'homestead',
+            'dbname'    => 'blog5',
+            'password'  => 'secret'
+        ];
+
         try
         {
-            self::$bdd = new \PDO('mysql:host=localhost;dbname=blog5;charset=utf8', 'homestead', 'secret');
-            self::$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$bdd = new \PDO(
+                'mysql:host='.$credentials['host'].';dbname='.$credentials['dbname'].';charset=utf8',
+                $credentials['user'],
+                $credentials['password']
+            );
         }
         catch(Exception $e)
         {
