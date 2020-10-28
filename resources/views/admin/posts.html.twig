@@ -18,6 +18,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
+                            {% if post_sent == 1 %}
+                            <div class="alert alert-success" role="alert">
+                            Post ajouté avec succès
+                            </div>
+                            {% endif %}
                             <h3 class="card-title">Liste des billets publiés</h3>
                         </div>
                         <!-- /.card-header -->

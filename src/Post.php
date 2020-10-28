@@ -156,7 +156,7 @@ Class Post extends \Database
 
     }
 
-    public static function create(string $title, string $chapo, string $content, string $author)
+    public static function create(string $title, string $chapo, string $content, int $author)
     {
         self::connect();
 
@@ -194,10 +194,6 @@ Class Post extends \Database
         self::query("DELETE FROM posts WHERE id = :id", ['id' => $id ]);
     }
 
-    public function getPrettyDate() : string
-    {
-
-    }
 
     public static function count_post() : int
     {

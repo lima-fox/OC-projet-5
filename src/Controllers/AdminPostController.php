@@ -102,9 +102,15 @@ class AdminPostController extends AdminController
 
     public function list()
     {
+        $post_sent = 0;
+        if(isset($_SESSION['post_sent'])) {
+            $post_sent = $_SESSION['post_sent'];
+            unset($_SESSION['post_sent']);
+        }
+
         $posts = Post::getAll();
 
-        $this->tpl->view("/admin/posts.html.twig", ['posts' => $posts]);
+        $this->tpl->view("/admin/posts.html.twig", ['posts' => $posts, 'post_sent'=> $post_sent]);
     }
 
     public function modify_send()
